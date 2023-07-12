@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="background5" type="id" />
+    <item name="g1_balance_box" type="id" />
+    <item name="text_balance_g1" type="id" />
+    <item name="balance_g1" type="id" />
+    <item name="g1_scrolling_box" type="id" />
+    <item name="win_box" type="id" />
+    <item name="text_win_g1" type="id" />
+    <item name="win_g1" type="id" />
+    <item name="button_spin" type="id" />
+    <item name="text_spin_g1" type="id" />
+    <item name="button_plus_g1" type="id" />
+    <item name="minus_g1" type="id" />
+    <item name="button_minus_g1" type="id" />
+    <item name="plus_g1" type="id" />
+    <item name="button_back_g1" type="id" />
+    <item name="back_g1" type="id" />
+    <item name="recyclerView1" type="id" />
+    <item name="recyclerView2" type="id" />
+    <item name="recyclerView3" type="id" />
+    <item name="background" type="id" />
+    <item name="couple" type="id" />
+    <item name="button_go_to_play" type="id" />
+    <item name="text_email" type="id" />
+    <item name="button_web_wiew" type="id" />
+    <item name="text_web_view" type="id" />
+</resources>

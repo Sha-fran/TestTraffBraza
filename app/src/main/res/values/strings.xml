@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="game">Game</string>
+    <string name="webview">WebView</string>
+    <string name="rate">RATE</string>
+    <string name="_00000">00000</string>
+    <string name="balance">BALANCE</string>
+    <string name="spin">SPIN</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="back"><![CDATA[<]]></string>
+</resources>
