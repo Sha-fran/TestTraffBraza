@@ -21,4 +21,3 @@ public abstract class CalculatedDatabase extends RoomDatabase {
 
     public abstract CalculationsDao calculationsDao();
 }
-
