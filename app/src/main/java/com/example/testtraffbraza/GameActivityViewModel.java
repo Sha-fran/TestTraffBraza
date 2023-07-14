@@ -7,6 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.Random;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -17,6 +19,9 @@ public class GameActivityViewModel extends AndroidViewModel {
     private CalculationsDao calculationsDao;
     private CalculationData calculationData;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    private final Random random = new Random();
+    private final int min = 35, max = 50;
 
     private final int startBalance = 0;
     private final int startRate = 100;
@@ -69,8 +74,6 @@ public class GameActivityViewModel extends AndroidViewModel {
         });
         compositeDisposable.add(disposable);
 
-
-
         calculationData.setBalance(balance);
         Disposable disposable2 = calculationsDao.add(calculationData).subscribeOn(Schedulers.io()).subscribe();
         compositeDisposable.add(disposable2);
@@ -88,5 +91,13 @@ public class GameActivityViewModel extends AndroidViewModel {
     protected void onCleared() {
         super.onCleared();
         compositeDisposable.dispose();
+    }
+
+    public int firstPosition() {
+        return random.nextInt((max - min) + 1 + min);
+    }
+
+    public int nextPosition(int position) {
+        return position + random.nextInt((max - min) + 1 + min);
     }
 }

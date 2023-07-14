@@ -22,12 +22,7 @@ public class GameActivity extends AppCompatActivity {
     private final ScrollViewsAdapter scrollViewsAdapter1 = new ScrollViewsAdapter();
     private final ScrollViewsAdapter scrollViewsAdapter2 = new ScrollViewsAdapter();
     private final ScrollViewsAdapter scrollViewsAdapter3 = new ScrollViewsAdapter();
-    private final Random random = new Random();
     private GameActivityViewModel gameActivityViewModel;
-    private final int min = 35, max = 50;
-    private int position1 = random.nextInt((max - min)) + 1 + min;
-    private int position2 = random.nextInt((max - min)) + 1 + min;
-    private int position3 = random.nextInt((max - min)) + 1 + min;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,39 +57,22 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        binding.recyclerView1.smoothScrollToPosition(position1);
-        binding.recyclerView2.smoothScrollToPosition(position2);
-        binding.recyclerView3.smoothScrollToPosition(position3);
-
-
+        binding.recyclerView1.smoothScrollToPosition(gameActivityViewModel.firstPosition());
+        binding.recyclerView2.smoothScrollToPosition(gameActivityViewModel.firstPosition());
+        binding.recyclerView3.smoothScrollToPosition(gameActivityViewModel.firstPosition());
 
         binding.buttonSpin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                position1 = changePosition(position1);
-                position2 = changePosition(position2);
-                position3 = changePosition(position3);
+                binding.recyclerView1.smoothScrollToPosition(gameActivityViewModel.nextPosition(getCurrentItem(binding.recyclerView1)));
+                binding.recyclerView2.smoothScrollToPosition(gameActivityViewModel.nextPosition(getCurrentItem(binding.recyclerView2)));
+                binding.recyclerView3.smoothScrollToPosition(gameActivityViewModel.nextPosition(getCurrentItem(binding.recyclerView3)));
 
-
-                binding.recyclerView1.smoothScrollToPosition(position1);
-                binding.recyclerView2.smoothScrollToPosition(position2);
-                binding.recyclerView3.smoothScrollToPosition(position3);
-
-
-                int index1 = getCurrentItem(binding.recyclerView1) % 5;
-                int index2 = getCurrentItem(binding.recyclerView2) % 5;
-                int index3 = getCurrentItem(binding.recyclerView3) % 5;
-
-                gameActivityViewModel.balanceCalculation(index1, index2, index3);
+                gameActivityViewModel.balanceCalculation(getCurrentItem(binding.recyclerView1) % 5, getCurrentItem(binding.recyclerView2) % 5, getCurrentItem(binding.recyclerView3) % 5);
             }
         });
     }
-
-    public int changePosition(int position) {
-        return position + random.nextInt((max - min) + 1 + min);
-    }
-
 
     public int getCurrentItem(RecyclerView recyclerView) {
         return ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
