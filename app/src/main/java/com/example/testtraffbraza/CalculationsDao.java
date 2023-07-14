@@ -6,18 +6,18 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
+
 @Dao
 public interface CalculationsDao {
 
     @Query("SELECT balance FROM calculationData")
-    LiveData<Integer> getBalance();
-
-    @Query("SELECT balance FROM calculationData")
-    int getBalanceInt();
+    Single<Integer> getBalance();
 
     @Query("SELECT rate FROM calculationData")
-    int getRate();
+    Single<Integer> getRate();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void add(CalculationData calculationData);
+    Completable add(CalculationData calculationData);
 }

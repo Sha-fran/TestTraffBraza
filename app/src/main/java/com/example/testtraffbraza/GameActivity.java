@@ -2,6 +2,7 @@ package com.example.testtraffbraza;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,9 +15,6 @@ import com.example.testtraffbraza.databinding.ActivityGameBinding;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 
 public class GameActivity extends AppCompatActivity {
     private ActivityGameBinding binding;
@@ -36,7 +34,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityGameBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        gameActivityViewModel = new GameActivityViewModel(getApplication());
+        gameActivityViewModel = new ViewModelProvider(this).get(GameActivityViewModel.class);
 
         binding.recyclerView1.setLayoutManager(new GridLayoutManager(this.getBaseContext(), 1));
         binding.recyclerView1.setAdapter(scrollViewsAdapter1);
@@ -57,7 +55,7 @@ public class GameActivity extends AppCompatActivity {
         scrollViewsAdapter2.setItem(scrollImagesList);
         scrollViewsAdapter3.setItem(scrollImagesList);
 
-        gameActivityViewModel.getBalance().observe(this, new Observer<Integer>() {
+        gameActivityViewModel.getBalanceForUI().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 binding.balanceG1.setText(String.valueOf(integer));
@@ -78,29 +76,11 @@ public class GameActivity extends AppCompatActivity {
                 position2 = changePosition(position2);
                 position3 = changePosition(position3);
 
-                ExecutorService pool = Executors.newFixedThreadPool(3);
 
-                pool.submit(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.recyclerView1.smoothScrollToPosition(position1);
-                    }
-                });
+                binding.recyclerView1.smoothScrollToPosition(position1);
+                binding.recyclerView2.smoothScrollToPosition(position2);
+                binding.recyclerView3.smoothScrollToPosition(position3);
 
-                pool.submit(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.recyclerView2.smoothScrollToPosition(position2);
-                    }
-                });
-
-                pool.submit(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.recyclerView3.smoothScrollToPosition(position3);
-                    }
-                });
-                pool.shutdown();
 
                 int index1 = getCurrentItem(binding.recyclerView1) % 5;
                 int index2 = getCurrentItem(binding.recyclerView2) % 5;

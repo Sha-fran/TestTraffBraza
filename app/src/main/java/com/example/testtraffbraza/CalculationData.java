@@ -19,12 +19,6 @@ public class CalculationData {
         this.rate = rate;
     }
 
-    @Ignore
-    public CalculationData(int balance, int rate) {
-        this.balance = balance;
-        this.rate = rate;
-    }
-
     public int getId() {
         return id;
     }
